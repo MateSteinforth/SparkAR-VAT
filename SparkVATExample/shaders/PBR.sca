@@ -257,7 +257,7 @@ export vec4 PBRColor( optional<Texture2d> baseColorTexture,
                       vec3 vertexNormal)
 {
   // Attributes
-  vec2 uv = getVertexTexCoord();
+  vec2 uv = fragment(getVertexTexCoord());
   vec4 localPosition = getVertexPosition();
   // Material parameters
   MaterialInfo material = makeMaterialParameters(

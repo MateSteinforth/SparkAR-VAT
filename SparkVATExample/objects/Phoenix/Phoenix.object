@@ -1,17 +1,17 @@
 {
   "modelName": "master3_d_object_model",
-  "name": "Grid",
-  "identifier": "master3_d_object_model:305057-0f8e3482-53a3-42f3-a2f8-4af349427539",
-  "sourceIdentifier": "asset_collection_model:305061-0f8e3482-53a3-42f3-a2f8-4af349427539",
+  "name": "Phoenix",
+  "identifier": "master3_d_object_model:326885-0f8e3482-53a3-42f3-a2f8-4af349427539",
+  "sourceIdentifier": "asset_collection_model:326889-0f8e3482-53a3-42f3-a2f8-4af349427539",
   "animationMask": {
     "position": false,
     "rotation": false,
     "scale": false
   },
   "cameraVisibility": "back|front",
-  "depth": 0.7653669118881226,
+  "depth": 0.6730399131774902,
   "globalScaleFactor": 1,
-  "height": 1.9990875720977783,
+  "height": 0.48023515939712524,
   "hidden": false,
   "outputVisibility": "preview|capture",
   "physicsEnabled": false,
@@ -27,12 +27,12 @@
     "y": 0,
     "z": 0
   },
-  "width": 2,
+  "width": 0.8876155018806458,
   "children": [
     {
       "modelName": "mesh",
       "name": "export_mesh",
-      "identifier": "mesh:305045-0f8e3482-53a3-42f3-a2f8-4af349427539",
+      "identifier": "mesh:326873-0f8e3482-53a3-42f3-a2f8-4af349427539",
       "animationMask": {
         "position": false,
         "rotation": false,
@@ -42,10 +42,10 @@
       "castShadow": false,
       "hidden": false,
       "nodeName": "export_mesh",
-      "numberOfFaces": 286,
+      "numberOfFaces": 4063,
       "outputVisibility": "preview|capture",
       "physicsEnabled": false,
-      "prefabIdentifier": "gltf:305051-0f8e3482-53a3-42f3-a2f8-4af349427539",
+      "prefabIdentifier": "gltf:326879-0f8e3482-53a3-42f3-a2f8-4af349427539",
       "receiveShadow": false,
       "renderPass": "main_scene",
       "tags": [],
@@ -64,21 +64,21 @@
       "children": [
         {
           "modelName": "surfaces",
-          "identifier": "surfaces:305047-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "identifier": "surfaces:326875-0f8e3482-53a3-42f3-a2f8-4af349427539",
           "children": [
             {
               "modelName": "surface",
               "name": "surface0",
-              "identifier": "surface:305054-0f8e3482-53a3-42f3-a2f8-4af349427539",
+              "identifier": "surface:326882-0f8e3482-53a3-42f3-a2f8-4af349427539",
               "isMaterialIdentifierEnabled": true,
-              "materialIdentifier": "dependent_material_model:305041-0f8e3482-53a3-42f3-a2f8-4af349427539",
-              "surfaceGroupIdentifier": "305055-0f8e3482-53a3-42f3-a2f8-4af349427539"
+              "materialIdentifier": "dependent_material_model:326869-0f8e3482-53a3-42f3-a2f8-4af349427539",
+              "surfaceGroupIdentifier": "326883-0f8e3482-53a3-42f3-a2f8-4af349427539"
             }
           ]
         },
         {
           "modelName": "blend_shapes_model",
-          "identifier": "blend_shapes_model:305049-0f8e3482-53a3-42f3-a2f8-4af349427539"
+          "identifier": "blend_shapes_model:326877-0f8e3482-53a3-42f3-a2f8-4af349427539"
         }
       ]
     }

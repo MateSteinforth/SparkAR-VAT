@@ -1,0 +1,41 @@
+{
+  "modelName": "texture",
+  "name": "Phoenix_normal_high_part0",
+  "identifier": "texture:354432-0f8e3482-53a3-42f3-a2f8-4af349427539",
+  "alphaPremultiplicationMode": "should_premultiply",
+  "assetDataHash": "d496a9481765ab534f6c9248e511ea45",
+  "assetLocator": "textures/Phoenix_normal_high_part0.png",
+  "colorEncoding": "linear",
+  "compressionQuality": "high",
+  "coordMapping": "none",
+  "excludeDuringExport": false,
+  "excludeFromPackage": false,
+  "exportConfigurations": [
+    "textureExportConfig:354434-0f8e3482-53a3-42f3-a2f8-4af349427539",
+    "textureExportConfig:354442-0f8e3482-53a3-42f3-a2f8-4af349427539",
+    "textureExportConfig:354450-0f8e3482-53a3-42f3-a2f8-4af349427539"
+  ],
+  "filter": "bilinear",
+  "hasOfflineMipmaps": false,
+  "height": 99,
+  "importIssues": {},
+  "isExternalAsset": true,
+  "smartTextureTargetSizeLimit": "largest",
+  "targetSize": "largest",
+  "uWrapMode": "clamp",
+  "vWrapMode": "clamp",
+  "width": 1024,
+  "children": [
+    {
+      "modelName": "data_texture_metadata_model",
+      "name": "data_texture_metadata_model0",
+      "assetDataHash": "d496a9481765ab534f6c9248e511ea45",
+      "colorCount": 20113,
+      "detectedAlphaChannel": "no_alpha",
+      "detectedOriginalFormat": "png",
+      "entropyOfDistribution": 14.129908812058579,
+      "pixelsHigh": 99,
+      "pixelsWide": 1024
+    }
+  ]
+}

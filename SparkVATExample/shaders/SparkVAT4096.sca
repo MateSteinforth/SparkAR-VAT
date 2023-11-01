@@ -22,6 +22,10 @@ export vec4 VATposition(    optional<std::Texture2d> positionHigh0,
                             optional<std::Texture2d> positionLow0,
                             optional<std::Texture2d> positionHigh1,
                             optional<std::Texture2d> positionLow1,
+                            optional<std::Texture2d> positionHigh2,
+                            optional<std::Texture2d> positionLow2,
+                            optional<std::Texture2d> positionHigh3,
+                            optional<std::Texture2d> positionLow3,
                             float frame,
                             optional<float> scaleFactor) {
     // Attributes
@@ -30,7 +34,9 @@ export vec4 VATposition(    optional<std::Texture2d> positionHigh0,
     // Calculate Position
     vec4 unpackedPos0 = unpack16bitTexture(positionHigh0, positionLow0, vec2(uv2 + vec2(0., frame-0.5)));
     vec4 unpackedPos1 = unpack16bitTexture(positionHigh1, positionLow1, vec2(uv2 + vec2(-1., frame-0.5)));
-    vec4 unpackedPos = unpackedPos0 + unpackedPos1;
+    vec4 unpackedPos2 = unpack16bitTexture(positionHigh2, positionLow2, vec2(uv2 + vec2(-2., frame-0.5)));
+    vec4 unpackedPos3 = unpack16bitTexture(positionHigh3, positionLow3, vec2(uv2 + vec2(-3., frame-0.5)));
+    vec4 unpackedPos = unpackedPos0 + unpackedPos1 + unpackedPos2 + unpackedPos3;
     unpackedPos *= scaleFactor.valueOr(1.0); // Apply scale factor to get the original offset magnitude
 
     vec4 yUpCoordinates = vec4(unpackedPos.x, -unpackedPos.y, unpackedPos.z, 1.0);
@@ -41,12 +47,18 @@ export vec3 VATgetVertexNormal( optional<std::Texture2d> normalHigh0,
                                 optional<std::Texture2d> normalLow0,
                                 optional<std::Texture2d> normalHigh1,
                                 optional<std::Texture2d> normalLow1,
+                                optional<std::Texture2d> normalHigh2,
+                                optional<std::Texture2d> normalLow2,
+                                optional<std::Texture2d> normalHigh3,
+                                optional<std::Texture2d> normalLow3,
                                 float frame ) {
   // Attributes
   vec2 uv2 = getVertexTexCoord1().valueOr(vec2(0.0));
   vec4 normal0 = unpack16bitTexture(normalHigh0, normalLow0, vec2(uv2 + vec2(0., frame-0.5)));
   vec4 normal1 = unpack16bitTexture(normalHigh1, normalLow1, vec2(uv2 + vec2(-1., frame-0.5)));
-  vec4 normal = normal0 + normal1;
+  vec4 normal2 = unpack16bitTexture(normalHigh2, normalLow2, vec2(uv2 + vec2(-2., frame-0.5)));
+  vec4 normal3 = unpack16bitTexture(normalHigh3, normalLow3, vec2(uv2 + vec2(-3., frame-0.5)));
+  vec4 normal = normal0 + normal1 + normal2 + normal3;
   return normal.xyz;
 }
 
@@ -54,6 +66,10 @@ export mat3 VATgetTangentFrame( optional<std::Texture2d> normalHigh0,
                                 optional<std::Texture2d> normalLow0,
                                 optional<std::Texture2d> normalHigh1,
                                 optional<std::Texture2d> normalLow1,
+                                optional<std::Texture2d> normalHigh2,
+                                optional<std::Texture2d> normalLow2,
+                                optional<std::Texture2d> normalHigh3,
+                                optional<std::Texture2d> normalLow3,
                                 float frame ) {
     // Attributes
     vec2 uv2 = getVertexTexCoord1().valueOr(vec2(0.0));
@@ -63,6 +79,10 @@ export mat3 VATgetTangentFrame( optional<std::Texture2d> normalHigh0,
                                     normalLow0,
                                     normalHigh1,
                                     normalLow1,
+                                    normalHigh2,
+                                    normalLow2,
+                                    normalHigh3,
+                                    normalLow3,
                                     frame);
 
     vec3 csTangent = mat3(getModelViewMatrix()) * getVertexTangent();
@@ -77,12 +97,20 @@ export mat3 VATgetTangentFrame( optional<std::Texture2d> normalHigh0,
 void main(  optional<std::Texture2d> diffuse,
             optional<std::Texture2d> positionHigh0,
             optional<std::Texture2d> positionHigh1,
+            optional<std::Texture2d> positionHigh2,
+            optional<std::Texture2d> positionHigh3,
             optional<std::Texture2d> positionLow0,
             optional<std::Texture2d> positionLow1,
+            optional<std::Texture2d> positionLow2,
+            optional<std::Texture2d> positionLow3,
             optional<std::Texture2d> normalHigh0,
             optional<std::Texture2d> normalHigh1,
+            optional<std::Texture2d> normalHigh2,
+            optional<std::Texture2d> normalHigh3,
             optional<std::Texture2d> normalLow0,
             optional<std::Texture2d> normalLow1,
+            optional<std::Texture2d> normalLow2,
+            optional<std::Texture2d> normalLow3,
             optional<std::Texture2d> matcapTex,
             float frame,
             float scaleFactor,
@@ -97,6 +125,10 @@ void main(  optional<std::Texture2d> diffuse,
                           positionLow0,
                           positionHigh1,
                           positionLow1,
+                          positionHigh2,
+                          positionLow2,
+                          positionHigh3,
+                          positionLow3,
                           frame,
                           scaleFactor);
 

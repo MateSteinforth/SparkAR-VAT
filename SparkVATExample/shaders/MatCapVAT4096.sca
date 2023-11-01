@@ -1,0 +1,68 @@
+precision highp float;
+using namespace std;
+#import <utils>
+#import <SparkVAT4096.sca>
+#import <MatCap.sca>
+
+// @param[default=1.0] normalScale
+// @param[default=1.0] normalTile
+// @param[default=0.0] frame
+// @param[default=1.0] scaleFactor
+// @return color
+// @return position
+void main(  optional<std::Texture2d> diffuseTex,
+            optional<std::Texture2d> matcapTex,
+            optional<std::Texture2d> normalTex,
+            optional<std::Texture2d> positionHigh0,
+            optional<std::Texture2d> positionHigh1,
+            optional<std::Texture2d> positionHigh2,
+            optional<std::Texture2d> positionHigh3,
+            optional<std::Texture2d> positionLow0,
+            optional<std::Texture2d> positionLow1,
+            optional<std::Texture2d> positionLow2,
+            optional<std::Texture2d> positionLow3,
+            optional<std::Texture2d> normalHigh0,
+            optional<std::Texture2d> normalHigh1,
+            optional<std::Texture2d> normalHigh2,
+            optional<std::Texture2d> normalHigh3,
+            optional<std::Texture2d> normalLow0,
+            optional<std::Texture2d> normalLow1,
+            optional<std::Texture2d> normalLow2,
+            optional<std::Texture2d> normalLow3,
+            optional<float> scaleFactor,
+            float normalScale,
+            float normalTile,
+            float frame,
+            out vec4 Color,
+            out vec4 Position)
+
+{
+  // Attributes
+  vec2 uv = getVertexTexCoord();
+
+  mat3 tangentFrame = VATgetTangentFrame( normalHigh0,
+                                          normalLow0,
+                                          normalHigh1,
+                                          normalLow1,
+                                          normalHigh2,
+                                          normalLow2,
+                                          normalHigh3,
+                                          normalLow3,
+                                          frame);
+
+  vec2 calculatedNormal = calculateNormal(normalTex, tangentFrame, normalScale, normalTile);
+
+  Color =   diffuseTex.sample(uv).valueOr(vec4(0.)) +
+            MatCapColor(matcapTex, calculatedNormal);
+
+  Position = VATposition( positionHigh0,
+                          positionLow0,
+                          positionHigh1,
+                          positionLow1,
+                          positionHigh2,
+                          positionLow2,
+                          positionHigh3,
+                          positionLow3,
+                          frame,
+                          scaleFactor);
+}

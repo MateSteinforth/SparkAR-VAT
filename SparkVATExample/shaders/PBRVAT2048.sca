@@ -1,7 +1,7 @@
 precision highp float;
 using namespace std;
 #import <utils>
-#import <SparkVAT.sca>
+#import <SparkVAT2048.sca>
 #import <PBR.sca>
 
 // Entry point of the shader code asset
@@ -14,10 +14,14 @@ using namespace std;
 // @param[default=0.0,min=0.0,max=1.0] u_normalMapScale
 // @return color
 void main(
-            optional<std::Texture2d> positionHigh,
-            optional<std::Texture2d> positionLow,
-            optional<std::Texture2d> normalHigh,
-            optional<std::Texture2d> normalLow,
+            optional<std::Texture2d> positionHigh0,
+            optional<std::Texture2d> positionHigh1,
+            optional<std::Texture2d> positionLow0,
+            optional<std::Texture2d> positionLow1,
+            optional<std::Texture2d> normalHigh0,
+            optional<std::Texture2d> normalHigh1,
+            optional<std::Texture2d> normalLow0,
+            optional<std::Texture2d> normalLow1,
             optional<Texture2d> baseColorTexture,
             optional<Texture2d> metallicRoughnessTexture,
             optional<Texture2d> occlusionTexture,
@@ -38,9 +42,11 @@ void main(
             out vec4 Color,
             out vec4 Position)
 {
-  vec3 VATvertexNormal = VATgetVertexNormal(normalHigh, normalLow, frame);
-  // mat3 tangentFrame = VATgetTangentFrame(normalHigh, normalLow, frame);
-  // vec2 calculatedNormal = calculateNormal(normalTex, tangentFrame, normalScale, normalTile);
+  vec3 VATvertexNormal = VATgetVertexNormal(normalHigh0,
+                                            normalLow0,
+                                            normalHigh1,
+                                            normalLow1,
+                                            frame);
 
   Color = PBRColor( baseColorTexture,
                     metallicRoughnessTexture,
@@ -59,5 +65,10 @@ void main(
                     u_normalMapScale,
                     VATvertexNormal);
 
-  Position = VATposition(positionHigh, positionLow, frame, scaleFactor);
+  Position = VATposition( positionHigh0,
+                          positionLow0,
+                          positionHigh1,
+                          positionLow1,
+                          frame,
+                          scaleFactor);
 }

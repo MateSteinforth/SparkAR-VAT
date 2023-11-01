@@ -1,19 +1,19 @@
 {
   "modelName": "texture",
-  "name": "Grid_position_high_part1",
-  "identifier": "texture:305035-0f8e3482-53a3-42f3-a2f8-4af349427539",
+  "name": "Phoenix_normal_high_part3",
+  "identifier": "texture:354420-0f8e3482-53a3-42f3-a2f8-4af349427539",
   "alphaPremultiplicationMode": "should_premultiply",
-  "assetDataHash": "d57ca13a664038239000a80e1c129f04",
-  "assetLocator": "textures/Grid_position_high_part1.png",
+  "assetDataHash": "f5bfb8beea919b643dd665598a5e6df6",
+  "assetLocator": "textures/Phoenix_normal_high_part3.png",
   "colorEncoding": "linear",
   "compressionQuality": "high",
   "coordMapping": "none",
   "excludeDuringExport": false,
   "excludeFromPackage": false,
   "exportConfigurations": [
-    "textureExportConfig:305233-0f8e3482-53a3-42f3-a2f8-4af349427539",
-    "textureExportConfig:305237-0f8e3482-53a3-42f3-a2f8-4af349427539",
-    "textureExportConfig:305241-0f8e3482-53a3-42f3-a2f8-4af349427539"
+    "textureExportConfig:354440-0f8e3482-53a3-42f3-a2f8-4af349427539",
+    "textureExportConfig:354448-0f8e3482-53a3-42f3-a2f8-4af349427539",
+    "textureExportConfig:354456-0f8e3482-53a3-42f3-a2f8-4af349427539"
   ],
   "filter": "bilinear",
   "hasOfflineMipmaps": false,
@@ -24,18 +24,18 @@
   "targetSize": "largest",
   "uWrapMode": "clamp",
   "vWrapMode": "clamp",
-  "width": 42,
+  "width": 420,
   "children": [
     {
       "modelName": "data_texture_metadata_model",
       "name": "data_texture_metadata_model0",
-      "assetDataHash": "d57ca13a664038239000a80e1c129f04",
-      "colorCount": 1290,
+      "assetDataHash": "f5bfb8beea919b643dd665598a5e6df6",
+      "colorCount": 8316,
       "detectedAlphaChannel": "no_alpha",
       "detectedOriginalFormat": "png",
-      "entropyOfDistribution": 8.70961106255888,
+      "entropyOfDistribution": 12.406321895647912,
       "pixelsHigh": 99,
-      "pixelsWide": 42
+      "pixelsWide": 420
     }
   ]
 }

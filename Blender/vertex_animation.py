@@ -36,7 +36,7 @@ import bmesh
 import mathutils
 
 # Global variable declaration
-chunk_width = 128
+chunk_width = 1024
 
 def get_per_frame_mesh_data(context, data, objects):
     """Return a list of combined mesh data per frame"""
@@ -74,23 +74,23 @@ def export_mesh(context, obj, name):
 
 def create_export_mesh_object(context, data, me):
     """Return a mesh object with correct UVs spread across multiple textures if needed."""
-    texture_size = chunk_width
-
+    # Setting the max pixels per chunk to 1022
+    max_chunk_pixels = 1022
     while len(me.uv_layers) < 2:
         me.uv_layers.new()
     uv_layer = me.uv_layers[1]
     uv_layer.name = "vertex_anim"
 
     max_vertex_index = len(me.vertices)
-    chunks = max_vertex_index // texture_size
-    remainder = max_vertex_index % texture_size
+    chunks = max_vertex_index // max_chunk_pixels
+    remainder = max_vertex_index % max_chunk_pixels
 
     for loop in me.loops:
-        chunk_number = loop.vertex_index // texture_size
-        index_in_chunk = loop.vertex_index % texture_size
+        chunk_number = loop.vertex_index // max_chunk_pixels
+        index_in_chunk = loop.vertex_index % max_chunk_pixels
 
         # Determine pixel width for the current chunk or remainder
-        current_pixel_width = texture_size if chunk_number < chunks else remainder
+        current_pixel_width = max_chunk_pixels if chunk_number < chunks else remainder
 
         # Calculate the offset and scale factor dynamically based on current pixel width
         pixel_center_offset = 1.5 / current_pixel_width
@@ -102,6 +102,7 @@ def create_export_mesh_object(context, data, me):
     ob = data.objects.new("export_mesh", me)
     context.scene.collection.objects.link(ob)
     return ob
+
 
 
 
@@ -166,19 +167,20 @@ def create_and_save_image(byte_list, name_postfix, size, output_dir):
     Create images from byte list in 1024-pixel wide chunks, preserving the Y-order of the data.
     """
     width, height = size
-
-    # Calculate the number of full 1024-pixel wide chunks and any remaining width
-    chunk_count = width // chunk_width
-    remainder_width = width % chunk_width
+    max_chunk_pixels = 1022  # Maximum pixels excluding padding
     padding = [127/255, 127/255, 127/255, 1]  # RGBA padding
+
+    # Calculate the number of full max_chunk_pixels wide chunks and any remaining width
+    chunk_count = width // max_chunk_pixels
+    remainder_width = width % max_chunk_pixels
 
     for i in range(chunk_count + (1 if remainder_width else 0)):
         # Extract a chunk from the byte list
         chunk_bytes = []
 
         for y in range(height):
-            start_index = (y * width + i * chunk_width) * 4
-            end_index = start_index + chunk_width * 4
+            start_index = (y * width + i * max_chunk_pixels) * 4
+            end_index = start_index + max_chunk_pixels * 4
             if i == chunk_count:  # for the last column
                 end_index = start_index + remainder_width * 4
 
@@ -192,8 +194,7 @@ def create_and_save_image(byte_list, name_postfix, size, output_dir):
             chunk_bytes.extend(padding)
 
         # Create an image from the chunk and save
-        # Adjusting the chunk width for padding (2 pixels)
-        chunk_img_width = chunk_width + 2 if i != chunk_count else remainder_width + 2
+        chunk_img_width = max_chunk_pixels + 2 if i != chunk_count else remainder_width + 2
         chunk_image = bpy.data.images.new(f"{name_postfix}_part{i}", width=chunk_img_width, height=height)
         chunk_image.pixels = chunk_bytes
 
@@ -207,6 +208,7 @@ def create_and_save_image(byte_list, name_postfix, size, output_dir):
 
         chunk_image.save_render(f"{output_dir}{name_postfix}_part{i}.png", scene=bpy.context.scene)
         bpy.data.images.remove(chunk_image)
+
 
 
 
@@ -316,12 +318,12 @@ class OBJECT_OT_ProcessAnimMeshes(bpy.types.Operator):
                 "Scene Unit must be Metric with a Unit Scale of 0.01!"
             )
             return {'CANCELLED'}
-        if vertex_count > 2048:
-            self.report(
-                {'ERROR'},
-                f"Vertex count of {vertex_count :,}, execedes limit of 2048!"
-            )
-            return {'CANCELLED'}
+        # if vertex_count > 2048:
+        #     self.report(
+        #         {'ERROR'},
+        #         f"Vertex count of {vertex_count :,}, execedes limit of 2048!"
+        #     )
+        #     return {'CANCELLED'}
         if frame_count > 1024:
             self.report(
                 {'ERROR'},
@@ -345,7 +347,7 @@ class OBJECT_OT_ProcessAnimMeshes(bpy.types.Operator):
         export_mesh(context, obj, myname)
 
         # Delete the mesh after saving
-        # bpy.ops.object.delete()
+        bpy.ops.object.delete()
 
         # Reset display device to its original value
         bpy.context.scene.display_settings.display_device = current_display_device

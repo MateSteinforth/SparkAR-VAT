@@ -33,6 +33,17 @@
       "children": [
         {
           "modelName": "composed_material_parameter_model",
+          "name": "diffuseTex",
+          "identifier": "composed_material_parameter_model:364144-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "textureFilter": "bilinear",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "texture"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
           "name": "matcapTex",
           "identifier": "composed_material_parameter_model:420791-d5b3073e-1e57-475f-ba35-a67c8a0e3e1d",
           "hasTextureParameters": false,
@@ -147,12 +158,12 @@
         },
         {
           "modelName": "composed_material_parameter_model",
-          "name": "speed",
-          "identifier": "composed_material_parameter_model:418529-d5b3073e-1e57-475f-ba35-a67c8a0e3e1d",
+          "name": "frame",
+          "identifier": "composed_material_parameter_model:381542-0f8e3482-53a3-42f3-a2f8-4af349427539",
           "hasTextureParameters": false,
           "isTextureIdentifierEnabled": false,
           "rawValue": [
-            0.5
+            0
           ],
           "textureFilter": "bilinear",
           "textureWrapModeU": "repeat",
