@@ -1,0 +1,81 @@
+{
+  "id": "405173d5b3073e1e57475fba35a67c8a0e3e1d",
+  "revision": "405174d5b3073e1e57475fba35a67c8a0e3e1d",
+  "version": {
+    "dev": 0,
+    "patch": 0,
+    "prod": 172
+  },
+  "creatorIdentifier": "com.facebook.arstudio.skylight",
+  "creatorPlatform": "macosx",
+  "creatorFileVersion": {
+    "dev": 0,
+    "patch": 0,
+    "prod": 172
+  },
+  "visual_programming": {
+    "connections": [
+      {
+        "modelName": "patch_connection_model",
+        "identifier": "patch_connection_model:306664-0f8e3482-53a3-42f3-a2f8-4af349427539",
+        "fromPatch": "template_patch_model:115618-0f8e3482-53a3-42f3-a2f8-4af349427539",
+        "fromPort": "1001",
+        "toPatch": "consumer_patch_model:272367-0f8e3482-53a3-42f3-a2f8-4af349427539",
+        "toPort": "1"
+      }
+    ],
+    "graphs": [
+      {
+        "modelName": "patch_graph",
+        "identifier": "patch_graph:405265-d5b3073e-1e57-475f-ba35-a67c8a0e3e1d",
+        "subpatches": [
+          "consumer_patch_model:272367-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "template_patch_model:115618-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "template_patch_model:207203-0f8e3482-53a3-42f3-a2f8-4af349427539"
+        ]
+      }
+    ],
+    "patches": [
+      {
+        "modelName": "consumer_patch_model",
+        "name": "grid2048",
+        "identifier": "consumer_patch_model:272367-0f8e3482-53a3-42f3-a2f8-4af349427539",
+        "object": "composed_material_parameter_model:183435-0f8e3482-53a3-42f3-a2f8-4af349427539",
+        "objectProperty": "shader_parameter",
+        "position": [
+          663.625,
+          176.39999999999998
+        ]
+      },
+      {
+        "modelName": "template_patch_model",
+        "name": "Loop Animation",
+        "identifier": "template_patch_model:115618-0f8e3482-53a3-42f3-a2f8-4af349427539",
+        "position": [
+          212,
+          92
+        ],
+        "templateId": "builtin.group.loopAnimation",
+        "values": [
+          {
+            "port": "102",
+            "value": {
+              "t": "double",
+              "v": 6
+            }
+          }
+        ]
+      },
+      {
+        "modelName": "template_patch_model",
+        "name": "Texture Sampler",
+        "identifier": "template_patch_model:207203-0f8e3482-53a3-42f3-a2f8-4af349427539",
+        "position": [
+          524,
+          332
+        ],
+        "templateId": "builtin.shaders.textureSampler"
+      }
+    ]
+  }
+}

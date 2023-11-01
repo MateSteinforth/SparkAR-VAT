@@ -35,6 +35,9 @@ import bpy
 import bmesh
 import mathutils
 
+# Global variable declaration
+chunk_width = 128
+
 def get_per_frame_mesh_data(context, data, objects):
     """Return a list of combined mesh data per frame"""
     meshes = []
@@ -68,23 +71,40 @@ def export_mesh(context, obj, name):
 
     bpy.ops.export_scene.fbx(filepath=output_dir, use_selection=True, apply_unit_scale=False, use_space_transform=False, apply_scale_options='FBX_SCALE_ALL')
 
-    # Delete the mesh after saving
-    bpy.ops.object.delete()
-
 
 def create_export_mesh_object(context, data, me):
-    """Return a mesh object with correct UVs"""
+    """Return a mesh object with correct UVs spread across multiple textures if needed."""
+    texture_size = chunk_width
+
     while len(me.uv_layers) < 2:
         me.uv_layers.new()
     uv_layer = me.uv_layers[1]
     uv_layer.name = "vertex_anim"
+
+    max_vertex_index = len(me.vertices)
+    chunks = max_vertex_index // texture_size
+    remainder = max_vertex_index % texture_size
+
     for loop in me.loops:
-        uv_layer.data[loop.index].uv = (
-            (loop.vertex_index + 0.5)/len(me.vertices), 128/255
-        )
+        chunk_number = loop.vertex_index // texture_size
+        index_in_chunk = loop.vertex_index % texture_size
+
+        # Determine pixel width for the current chunk or remainder
+        current_pixel_width = texture_size if chunk_number < chunks else remainder
+
+        # Calculate the offset and scale factor dynamically based on current pixel width
+        pixel_center_offset = 1.5 / current_pixel_width
+        scale_factor = 1 - 2 * pixel_center_offset
+
+        u_coord = chunk_number + scale_factor * (index_in_chunk / (current_pixel_width - 1)) + pixel_center_offset
+        uv_layer.data[loop.index].uv = (u_coord, 128/255)
+
     ob = data.objects.new("export_mesh", me)
     context.scene.collection.objects.link(ob)
     return ob
+
+
+
 
 
 def get_vertex_data(context, data, meshes):
@@ -100,6 +120,10 @@ def get_vertex_data(context, data, meshes):
             offset_length = (v.co - original[v.index].co).length
             if offset_length > max_offset_length:
                 max_offset_length = offset_length
+
+    # Ensure max_offset_length is not 0 to prevent division by zero
+    if max_offset_length == 0:
+        max_offset_length = 1
 
     context.scene.scale_factor = max_offset_length
 
@@ -125,8 +149,8 @@ def bake_vertex_data(context, data, offsets, normals, size, name):
     """Stores vertex offsets and normals in seperate image textures"""
     width, height = size
     output_dir = bpy.path.abspath(context.scene.output_dir)
-    write_output_image(offsets, name + "_position", size, output_dir)
-    write_output_image(normals, name + "_normal", size, output_dir)
+    write_output_image(offsets, name + "_position", size, output_dir, context)
+    write_output_image(normals, name + "_normal", size, output_dir, context)
 
 
 def float_to_bytes(float_value):
@@ -137,39 +161,97 @@ def float_to_bytes(float_value):
     return high_byte, low_byte
 
 
-def write_output_image(pixel_list, name, size, output_dir):
-    # Make sure the width and height are at least 32 pixels
+def create_and_save_image(byte_list, name_postfix, size, output_dir):
+    """
+    Create images from byte list in 1024-pixel wide chunks, preserving the Y-order of the data.
+    """
     width, height = size
-    target_width = max(32, width)
-    target_height = max(32, height)
 
-    # Determine if scaling is needed
-    scale_needed = size[0] < 32 or size[1] < 32
-    target_width = max(32, size[0])
-    target_height = max(32, size[1])
+    # Calculate the number of full 1024-pixel wide chunks and any remaining width
+    chunk_count = width // chunk_width
+    remainder_width = width % chunk_width
+    padding = [127/255, 127/255, 127/255, 1]  # RGBA padding
 
+    for i in range(chunk_count + (1 if remainder_width else 0)):
+        # Extract a chunk from the byte list
+        chunk_bytes = []
+
+        for y in range(height):
+            start_index = (y * width + i * chunk_width) * 4
+            end_index = start_index + chunk_width * 4
+            if i == chunk_count:  # for the last column
+                end_index = start_index + remainder_width * 4
+
+            # Add left padding
+            chunk_bytes.extend(padding)
+
+            # Add the image data
+            chunk_bytes.extend(byte_list[start_index:end_index])
+
+            # Add right padding
+            chunk_bytes.extend(padding)
+
+        # Create an image from the chunk and save
+        # Adjusting the chunk width for padding (2 pixels)
+        chunk_img_width = chunk_width + 2 if i != chunk_count else remainder_width + 2
+        chunk_image = bpy.data.images.new(f"{name_postfix}_part{i}", width=chunk_img_width, height=height)
+        chunk_image.pixels = chunk_bytes
+
+        # Calculate the target dimensions
+        target_width = max(32, chunk_img_width)
+        target_height = max(32, height)
+
+        # Scale the image if needed
+        if chunk_img_width < 32 or height < 32:
+            chunk_image.scale(target_width, target_height)
+
+        chunk_image.save_render(f"{output_dir}{name_postfix}_part{i}.png", scene=bpy.context.scene)
+        bpy.data.images.remove(chunk_image)
+
+
+
+
+
+
+# def create_and_save_image(byte_list, name_postfix, size, output_dir):
+#     """
+#     Create an image from byte list and save it.
+#     Ensure the image meets minimum size requirements.
+#     """
+#     # Calculate the target dimensions
+#     target_width = max(32, size[0])
+#     target_height = max(32, size[1])
+
+#     # Create a new image
+#     image = bpy.data.images.new(name_postfix, width=size[0], height=size[1])
+#     image.pixels = byte_list
+
+#     # Scale the image if needed
+#     if size[0] < 32 or size[1] < 32:
+#         image.scale(target_width, target_height)
+
+#     # Save the image
+#     image.save_render(output_dir + name_postfix + ".png", scene=bpy.context.scene)
+
+
+
+
+def write_output_image(pixel_list, name, size, output_dir, context):
     # Convert the pixel list to high and low bytes
     high_bytes_list = []
     low_bytes_list = []
-
     for pixel in pixel_list:
         high_byte, low_byte = float_to_bytes(pixel)
         high_bytes_list.append(high_byte / 255.0)
         low_bytes_list.append(low_byte / 255.0)
 
-    # Create and save high byte image
-    high_image = bpy.data.images.new(name + "_high", width=size[0], height=size[1])
-    high_image.pixels = high_bytes_list
-    if scale_needed:
-        high_image.scale(target_width, target_height)  # Scale the image if needed
-    high_image.save_render(output_dir + name + "_high.png", scene=bpy.context.scene)
+    # Save high bytes
+    create_and_save_image(high_bytes_list, name + "_high", size, output_dir)
 
-    # Create and save low byte image
-    low_image = bpy.data.images.new(name + "_low", width=size[0], height=size[1])
-    low_image.pixels = low_bytes_list
-    if scale_needed:
-        low_image.scale(target_width, target_height)  # Scale the image if needed
-    low_image.save_render(output_dir + name + "_low.png", scene=bpy.context.scene)
+    # Save low bytes
+    create_and_save_image(low_bytes_list, name + "_low", size, output_dir)
+
+
 
 # Function to store the current scene's unit settings
 def store_unit_settings(context):
@@ -234,10 +316,10 @@ class OBJECT_OT_ProcessAnimMeshes(bpy.types.Operator):
                 "Scene Unit must be Metric with a Unit Scale of 0.01!"
             )
             return {'CANCELLED'}
-        if vertex_count > 1024:
+        if vertex_count > 2048:
             self.report(
                 {'ERROR'},
-                f"Vertex count of {vertex_count :,}, execedes limit of 1024!"
+                f"Vertex count of {vertex_count :,}, execedes limit of 2048!"
             )
             return {'CANCELLED'}
         if frame_count > 1024:
@@ -261,6 +343,9 @@ class OBJECT_OT_ProcessAnimMeshes(bpy.types.Operator):
         texture_size = vertex_count, frame_count
         bake_vertex_data(context, data, offsets, normals, texture_size, myname)
         export_mesh(context, obj, myname)
+
+        # Delete the mesh after saving
+        # bpy.ops.object.delete()
 
         # Reset display device to its original value
         bpy.context.scene.display_settings.display_device = current_display_device

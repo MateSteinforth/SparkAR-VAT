@@ -1,0 +1,145 @@
+{
+  "modelName": "shader_code_asset_material_model",
+  "name": "grid2048",
+  "identifier": "shader_code_asset_material_model:183415-0f8e3482-53a3-42f3-a2f8-4af349427539",
+  "alphaTestEnabled": false,
+  "alphaTestThreshold": 0,
+  "blendMode": "replace",
+  "cullMode": "back",
+  "diffuseFactor": "0xffcccccc",
+  "diffuseTextureTransform": {
+    "offsetU": 0,
+    "offsetV": 0,
+    "rotation": 0,
+    "scaleU": 1,
+    "scaleV": 1
+  },
+  "doubleSided": true,
+  "fragmentOutputCount": 1,
+  "importIssues": {},
+  "isDiffuseTextureIdentifierEnabled": false,
+  "readDepth": true,
+  "shader": "shader_interface_model:99150-0f8e3482-53a3-42f3-a2f8-4af349427539",
+  "transparency": 1,
+  "writeDepth": true,
+  "writesToColorBufferAlpha": true,
+  "writesToColorBufferBlue": true,
+  "writesToColorBufferGreen": true,
+  "writesToColorBufferRed": true,
+  "children": [
+    {
+      "modelName": "composed_material_parameters_model",
+      "identifier": "composed_material_parameters_model:183417-0f8e3482-53a3-42f3-a2f8-4af349427539",
+      "children": [
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "diffuse",
+          "identifier": "composed_material_parameter_model:183419-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "textureFilter": "bilinear",
+          "textureIdentifier": "texture:176286-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "texture"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "positionHigh",
+          "identifier": "composed_material_parameter_model:251869-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "textureFilter": "bilinear",
+          "textureIdentifier": "texture:305039-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "texture"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "positionHigh1",
+          "identifier": "composed_material_parameter_model:256381-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "textureFilter": "bilinear",
+          "textureIdentifier": "texture:305035-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "texture"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "positionLow",
+          "identifier": "composed_material_parameter_model:251871-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "textureFilter": "bilinear",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "texture"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "normalHigh",
+          "identifier": "composed_material_parameter_model:183429-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "textureFilter": "bilinear",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "texture"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "normalLow",
+          "identifier": "composed_material_parameter_model:183431-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "textureFilter": "bilinear",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "texture"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "matcapTex",
+          "identifier": "composed_material_parameter_model:183433-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "textureFilter": "bilinear",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "texture"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "frame",
+          "identifier": "composed_material_parameter_model:183435-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "rawValue": [
+            1
+          ],
+          "textureFilter": "bilinear",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "float"
+        },
+        {
+          "modelName": "composed_material_parameter_model",
+          "name": "scaleFactor",
+          "identifier": "composed_material_parameter_model:183439-0f8e3482-53a3-42f3-a2f8-4af349427539",
+          "hasTextureParameters": false,
+          "isTextureIdentifierEnabled": false,
+          "rawValue": [
+            2
+          ],
+          "textureFilter": "bilinear",
+          "textureWrapModeU": "repeat",
+          "textureWrapModeV": "repeat",
+          "type": "float"
+        }
+      ]
+    }
+  ]
+}
