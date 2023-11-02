@@ -51,6 +51,8 @@ Drag and drop everything from the output directory above into your project
 
 set compression to 'none' for all imported textures
 
+set Sampling/Filtering to 'none' for all imported textures
+
 make a new material with the shader and populate the outputs
 
 assign it to the exported mesh from the output directory
