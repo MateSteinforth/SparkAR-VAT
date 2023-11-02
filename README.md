@@ -12,6 +12,8 @@ A combination of scripts for Blender and Meta Spark AR to play back arbitrarily 
 
 ## Quickstart
 
+download and unzip (or `git clone`) the repo.
+
 ### Installing the Script in Blender
 
 Edit > Preferences... > Add-Ons > Install...
