@@ -1,0 +1,36 @@
+{
+  "modelName": "texture",
+  "name": "BonesNormal",
+  "identifier": "texture:506076-0f8e3482-53a3-42f3-a2f8-4af349427539",
+  "alphaPremultiplicationMode": "should_premultiply",
+  "assetDataHash": "a3de6f3b67e55fa9e85a9a0082ffbfb7",
+  "assetLocator": "textures/BonesNormal.jpg",
+  "colorEncoding": "linear",
+  "compressionQuality": "high",
+  "coordMapping": "none",
+  "excludeDuringExport": false,
+  "excludeFromPackage": false,
+  "filter": "bilinear",
+  "hasOfflineMipmaps": false,
+  "height": 512,
+  "importIssues": {},
+  "isExternalAsset": true,
+  "smartTextureTargetSizeLimit": "largest",
+  "targetSize": "largest",
+  "uWrapMode": "repeat",
+  "vWrapMode": "repeat",
+  "width": 512,
+  "children": [
+    {
+      "modelName": "data_texture_metadata_model",
+      "name": "data_texture_metadata_model0",
+      "assetDataHash": "a3de6f3b67e55fa9e85a9a0082ffbfb7",
+      "colorCount": 21919,
+      "detectedAlphaChannel": "no_alpha",
+      "detectedOriginalFormat": "jpeg",
+      "entropyOfDistribution": 11.316769233941526,
+      "pixelsHigh": 512,
+      "pixelsWide": 512
+    }
+  ]
+}
