@@ -3,7 +3,7 @@
 ## Description
 A combination of scripts for Blender and Meta Spark AR to play back arbitrarily deformed geometry in Spark without using bones. It is super performant and flexible. 
 
-![](https://github.com/MateSteinforth/SparkAR-VAT/blob/packedVertices/Triceratops.gif)
+![](https://github.com/MateSteinforth/SparkAR-VAT/blob/master/Triceratops.gif)
 
 ## Tutorial
 
@@ -57,8 +57,7 @@ assign it to the exported mesh from the output directory
 
 **enter the Chunks from the Blender UI in the appropriate field**
 
-![](https://github.com/MateSteinforth/SparkAR-VAT/blob/packedVertices/Factors.png)
-
+![](https://github.com/MateSteinforth/SparkAR-VAT/blob/master/Factors.png)
 
 ### Known Limitations
 Because of Texture Size limits in Spark, the maximum framerange of the animation depends on the mesh resolution. Many animations don't need many frames, while most models have a few thousand vertices. An average walk cycle for a character is only about 30 frames.
