@@ -87,6 +87,8 @@ Vertex Order can't change between frames, which means that the mesh has to stay 
 
 Using [ImageOptim](https://imageoptim.com/) you can further compress the generated textures about 27,5 % per file on average (up to 49,8 %). (Important to keep Quality at 100%)
 
+You can play with manually setting texture compression in Spark AR to uncompressed GPU format such as PVRTC (iOS) / ETC2 (android) - observe if it saves data and doesn't degrade quality.
+
 ## Authors
 
 * **Mate Steinforth**
