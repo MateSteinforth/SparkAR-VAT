@@ -83,6 +83,10 @@ Because of Texture Size limits in Spark, the maximum framerange of the animation
 Vertex Order can't change between frames, which means that the mesh has to stay consistent between frames
 
 
+## Further Optimizations
+
+Using [ImageOptim](https://imageoptim.com/) you can further compress the generated textures about 27,5 % per file on average (up to 49,8 %). (Important to keep Quality at 100%)
+
 ## Authors
 
 * **Mate Steinforth**
