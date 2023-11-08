@@ -27,7 +27,7 @@ export vec2 calculateNormal(  optional<Texture2d> normalTex,
 export vec4 MatCapColor(  optional<std::Texture2d> matcapTex,
                           vec2 uv)
 {
-    return matcapTex.sample(uv).valueOr(vec4(1.0));
+    return matcapTex.sample(uv).valueOr(vec4(0., 0., 0., 1.));
 }
 
 // @param[default=1.0] normalScale

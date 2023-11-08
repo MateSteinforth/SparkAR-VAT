@@ -21,7 +21,7 @@ vec4 unpack16bitTexture(optional<std::Texture2d> positionHigh, optional<std::Tex
 export vec4 VATposition(optional<std::Texture2d> positionHigh, optional<std::Texture2d> positionLow, float frame, optional<float> scaleFactor, int chunks) {
     // Attributes
     frame = -(1.-frame)*1./float(chunks);
-    scaleFactor = 1./scaleFactor;
+    // scaleFactor = 1./scaleFactor;
     vec2 uv2 = getVertexTexCoord1().valueOr(vec2(0.0));
 
     // Calculate Position
