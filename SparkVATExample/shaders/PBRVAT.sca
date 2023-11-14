@@ -40,8 +40,6 @@ void main(
             out vec4 Position)
 {
   // Attributes
-  frame = mod(getTime() * 0.5,1.0);
-
   vec3 VATvertexNormal = VATgetVertexNormal(normalHigh, normalLow, frame, chunks);
 
   Color = PBRColor( baseColorTexture,
