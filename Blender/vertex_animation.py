@@ -52,7 +52,8 @@ def get_per_frame_mesh_data(context, data, objects):
         me = data.meshes.new("mesh")
         bm.to_mesh(me)
         bm.free()
-        me.calc_normals()
+        #me.calc_normals()
+        me.calc_normals_split()
         meshes.append(me)
     return meshes
 
@@ -359,7 +360,8 @@ class OBJECT_OT_ProcessAnimMeshes(bpy.types.Operator):
         current_display_device = bpy.context.scene.display_settings.display_device
 
         # Set display device to 'None'
-        bpy.context.scene.display_settings.display_device = 'None'
+        # bpy.context.scene.display_settings.display_device = 'None'
+        bpy.types.ColorManagedDisplaySettings.display_device = 'NONE'
 
         myname = bpy.context.active_object.name
         meshes = get_per_frame_mesh_data(context, data, objects)
